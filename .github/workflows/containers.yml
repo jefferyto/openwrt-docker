@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: "Tag or branch to deploy (empty for master)"
-        default: "master"
+        description: "Tag or branch to deploy (empty for main)"
+        default: "main"
         required: false
       target:
         description: "Single target to build (empty for all)"
@@ -52,7 +52,7 @@ jobs:
           echo "REF=$REF" >> "$GITHUB_ENV"
 
           case $REF in
-            master)
+            main|master)
               VERSION=SNAPSHOT
               echo "VERSION_PATH=snapshots" >> "$GITHUB_ENV"
             ;;
@@ -144,7 +144,7 @@ jobs:
           echo -e "\n---- sdks ----\n"
           echo "sdks=$JSON" >> "$GITHUB_OUTPUT"
 
-          echo "ref=${REF:-master}" >> "$GITHUB_OUTPUT"
+          echo "ref=${REF:-main}" >> "$GITHUB_OUTPUT"
           echo "version=${VERSION:-SNAPSHOT}" >> "$GITHUB_OUTPUT"
           echo "version_path=${VERSION_PATH:-snapshots}" >> "$GITHUB_OUTPUT"
 
