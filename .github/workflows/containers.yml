@@ -210,7 +210,7 @@ jobs:
 
       - name: Build
         id: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           no-cache: true
           push: false
@@ -234,7 +234,7 @@ jobs:
 
       - name: Push
         if: github.event_name != 'pull_request'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           push: true
           no-cache: true
@@ -352,7 +352,7 @@ jobs:
 
       - name: Build
         id: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           no-cache: true
           push: false
@@ -386,7 +386,7 @@ jobs:
 
       - name: Push
         if: github.event_name != 'pull_request'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           push: true
           no-cache: true
@@ -489,7 +489,7 @@ jobs:
 
       - name: Build
         id: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           no-cache: true
           push: false
@@ -505,7 +505,7 @@ jobs:
 
       - name: Push
         if: github.event_name != 'pull_request'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           no-cache: true
           push: true
