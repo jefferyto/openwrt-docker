@@ -132,6 +132,25 @@ access. Once closed the container is removed.
 * `malta/be` or `mips_24kc`
 * `mvebu/cortexa9` or `arm_cortex-a9_vfpv3-d16`
 
+## GitHub Actions CI & Registries
+
+The GitHub Actions workflow `.github/workflows/containers.yml` automatically builds and pushes the containers to the registries. If you fork this repository, you can also push to your own registry accounts.
+
+### GitHub Container Registry (GHCR)
+By default, the workflow will push containers to `ghcr.io/${{ github.repository_owner }}/<image>`. This works automatically out of the box using GitHub's built-in `GITHUB_TOKEN` and does not require any additional setup.
+
+### Docker Hub & Quay.io
+To push to your own Docker Hub or Quay.io registries, you need to configure the following secrets under your repository's **Settings -> Secrets and variables -> Actions**:
+
+* **Docker Hub (docker.io)**:
+  * `DOCKER_USER` - Your Docker Hub username.
+  * `DOCKER_TOKEN` - Your Docker Hub Personal Access Token.
+* **Quay.io (quay.io)**:
+  * `QUAY_USER` - Your Quay.io username.
+  * `QUAY_TOKEN` - Your Quay.io OAuth Token / Password.
+
+If these secrets are not configured, the workflow will automatically skip logging in and pushing to these registries without failing the build.
+
 ## Build Your Own
 
 If you wan to create your own container you can use the `Dockerfile`. You can set the following build arguments:
