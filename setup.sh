@@ -16,6 +16,11 @@ gpg --with-fingerprint --verify sha256sums.asc sha256sums
 # determine archive name
 file_name="$(grep "$DOWNLOAD_FILE" sha256sums | cut -d "*" -f 2)"
 
+if [ -z "$file_name" ]; then
+	echo "No file matching '$DOWNLOAD_FILE' found in sha256sums" >&2
+	exit 1
+fi
+
 # download imagebuilder/sdk archive
 wget -nv "$FILE_HOST/$DOWNLOAD_PATH/$file_name"
 

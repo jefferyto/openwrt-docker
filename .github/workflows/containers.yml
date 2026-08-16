@@ -470,10 +470,10 @@ jobs:
       - name: Generate build args
         id: build_args
         run: |
-          echo 'args<<EOF
-            TARGET=${{ matrix.target }}
-            TARGET_TAG="${TARGET//\//-}"
-            DOWNLOAD_FILE=openwrt-${TARGET_TAG}-rootfs.tar.gz
+          TARGET='${{ matrix.target }}'
+          echo "args<<EOF
+            TARGET=$TARGET
+            DOWNLOAD_FILE=openwrt-.*${TARGET//\//-}-\(default-\)\?rootfs.tar.gz
             WORKDIR=/
             USER=root
             VERSION_PATH=${{ needs.generate_matrix.outputs.version_path }}
@@ -481,7 +481,7 @@ jobs:
             CMD=ash
             FILE_HOST=${{ needs.generate_matrix.outputs.file_host }}
             RUN_SETUP=${{ needs.generate_matrix.outputs.run_setup }}
-          EOF' >> $GITHUB_OUTPUT
+          EOF" >> $GITHUB_OUTPUT
 
       - name: Build
         id: build
