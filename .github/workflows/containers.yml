@@ -11,6 +11,10 @@ env:
 on:
   # push:
   pull_request:
+  schedule:
+    # Rebuild the branch containers weekly so they do not drift away
+    # from the published feeds; see the dispatch job below.
+    - cron: "30 2 * * 1"
   workflow_dispatch:
     inputs:
       ref:
@@ -28,9 +32,25 @@ on:
         required: false
 
 jobs:
+  dispatch-scheduled-rebuilds:
+    name: Dispatch scheduled rebuilds
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    permissions:
+      actions: write
+    steps:
+      - name: Trigger a run for each maintained branch
+        run: |
+          for ref in main openwrt-24.10 openwrt-25.12; do
+            gh workflow run containers.yml --repo "$GITHUB_REPOSITORY" -f ref="$ref"
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
+
   generate_matrix:
     name: Set matrix
     runs-on: ubuntu-latest
+    if: github.event_name != 'schedule'
 
     outputs:
       imagebuilders: ${{ steps.find_targets.outputs.imagebuilders }}
