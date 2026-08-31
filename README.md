@@ -186,16 +186,16 @@ The GitHub Actions workflow `.github/workflows/containers.yml` automatically bui
 By default, the workflow will push containers to `ghcr.io/${{ github.repository_owner }}/<image>`. This works automatically out of the box using GitHub's built-in `GITHUB_TOKEN` and does not require any additional setup.
 
 ### Docker Hub & Quay.io
-To push to your own Docker Hub or Quay.io registries, you need to configure the following secrets under your repository's **Settings -> Secrets and variables -> Actions**:
+To push to your own Docker Hub or Quay.io registries, you need to configure the following variables and secrets under your repository's **Settings -> Secrets and variables -> Actions**:
 
 * **Docker Hub (docker.io)**:
-  * `DOCKER_USER` - Your Docker Hub username.
-  * `DOCKER_TOKEN` - Your Docker Hub Personal Access Token.
+  * `DOCKER_USER` (variable) - Your Docker Hub username.
+  * `DOCKER_TOKEN` (secret) - Your Docker Hub Personal Access Token.
 * **Quay.io (quay.io)**:
-  * `QUAY_USER` - Your Quay.io username.
-  * `QUAY_TOKEN` - Your Quay.io OAuth Token / Password.
+  * `QUAY_USER` (variable) - Your Quay.io username.
+  * `QUAY_TOKEN` (secret) - Your Quay.io OAuth Token / Password.
 
-If these secrets are not configured, the workflow will automatically skip logging in and pushing to these registries without failing the build.
+If these variables and secrets are not configured, the workflow will automatically skip logging in and pushing to these registries without failing the build.
 
 ## Build Your Own
 
